@@ -7,8 +7,12 @@ function index()
 	if not nixio.fs.access("/etc/config/transmission") then
 		return
 	end
-
-	local page = entry({"admin", "services", "transmission"}, cbi("transmission"), _("Transmission"))
-	page.dependent = true
+	
+	entry({"admin", "services", "transmission"},alias("admin", "services", "transmission", "general"),_("Transmission"))
+	entry({"admin", "services", "transmission", "general"},cbi("transmission/general"),_("General Settings"), 10).leaf = true
+	entry({"admin", "services", "transmission", "fileslocations"},cbi("transmission/fileslocations"),_("Files and Locations"), 11).leaf = true
+	entry({"admin", "services", "transmission", "bandwidth"},cbi("transmission/bandwidth"),_("Bandwidth settings"), 12).leaf = true
+	entry({"admin", "services", "transmission", "peer"},cbi("transmission/peer"),_("Peer settings"), 13).leaf = true
+	entry({"admin", "services", "transmission", "miscellaneous"},cbi("transmission/miscellaneous"),_("Miscellaneous"), 16).leaf = true
 
 end
