@@ -6,7 +6,7 @@
 
 include $(TOPDIR)/rules.mk
 
-LUCI_TITLE:=LuCI Support for Transmission
+LUCI_TITLE:=LuCI Support for Transmission for personal
 LUCI_DEPENDS:=
 
 include ../../luci.mk

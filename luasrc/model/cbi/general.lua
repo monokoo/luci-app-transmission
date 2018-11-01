@@ -3,22 +3,13 @@
 
 require("luci.sys")
 require("luci.util")
-require("luci.model.ipkg")
 
-local uci = require "luci.model.uci".cursor()
-local trport = uci:get_first("transmission", "transmission", "rpc_port") or 9091
-local running = (luci.sys.call("pidof transmission-daemon > /dev/null") == 0)
-local webinstalled = luci.model.ipkg.installed("transmission-web") or uci:get_first("transmission", "transmission", "web_home")
-local button = ""
-if running and webinstalled then
-	button = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=\"button\" value=\" " .. translate("Open Web Interface") .. " \" onclick=\"window.open('http://'+window.location.hostname+':" .. trport .. "')\"/>"
-end
-
-m = Map("transmission", "Transmission", translate("Transmission daemon is a simple bittorrent client, here you can configure the settings.") .. button)
+m = Map("transmission", "Transmission", translate("Transmission daemon is a simple bittorrent client, here you can configure the settings."))
 m.apply_on_parse=true
 function m.on_apply(self)
 luci.sys.call("/etc/init.d/transmission restart> /dev/null 2>&1")
 end
+m:section(SimpleSection).template  = "transmission/transmission_status"
 s=m:section(NamedSection, "general", "transmission", translate("Global settings"))
 s.addremove=false
 s.anonymous=true
