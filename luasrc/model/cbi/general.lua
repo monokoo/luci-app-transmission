@@ -4,7 +4,7 @@
 require("luci.sys")
 require("luci.util")
 
-m = Map("transmission", "Transmission", translate("Transmission daemon is a simple bittorrent client, here you can configure the settings."))
+m = Map("transmission","",translate("Transmission daemon is a simple bittorrent client, here you can configure the settings."))
 m.apply_on_parse=true
 function m.on_apply(self)
 luci.sys.call("/etc/init.d/transmission restart> /dev/null 2>&1")
